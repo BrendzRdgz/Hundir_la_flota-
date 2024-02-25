@@ -31,6 +31,17 @@ INSTRUCCIONES
 
 8.- Para imprimir el tablero en su condicion actual solo debemos imprimir la instancia.
     Ejemplo: "print(tablero_1)", esto mostrara los tableros que observa el jugador humano(su tablero y el reflejo del tablero de la maquina).
+
+9.- IMPORTANTE:
+    Las filas de la 1 a la 9 estan compuestas por 3 espacios/caracteres.
+    De la fila 10 en adelante estan compuestas por 4 espacios/caracteres.
+    
+    Para no romper la estructura de la cuadricula, cuando reflejamos un disparo acertado, un disparo errado o un barco(por ejemplo 'X', '-' u 'O') es importante
+    mantener esta estructura. Por ejemplo:
+
+    Si realizamos un disparo a la casilla B-4(en el array indices [3][1]) y acertamos lo reflejaremos como ' X '. Con tres espacios/caracteres.
+    Si realizamos un disparo a la casilla C-10(en el array indices [9][2]) y acertamos lo reflejaremos como '  X ' o ' X  '. Con cuatro espacios/caracteres.
+    Lo mismo para la hubicacion de barcos o disparos errados.
 '''
 
 import numpy as np
@@ -100,7 +111,3 @@ class Tablero:
                 #self.tablero_maquina[index_col][index_row] = f'{letras[index_col]}-{numeros[index_row]}'
                 #self.tablero_maquina_reflejo[index_col][index_row] = f'{letras[index_col]}-{numeros[index_row]}'
         
-
-tablero_1 = Tablero()
-
-print(tablero_1)
