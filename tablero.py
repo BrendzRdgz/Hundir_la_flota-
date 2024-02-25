@@ -1,3 +1,38 @@
+'''
+INSTRUCCIONES
+
+1.- El tablero esta diseñado para generar un array y mostrar un tablero hasta una dimension maxima(cuadrada, con igual cantidad de filas y columnas)
+    de 26x26 (cantidad de letras en el alfabeto). 
+
+2.- Al instanciar un objeto Tablero, la dimension por defecto es de 10x10. En caso de generar un tablero de mayores dimensiones debemos pasar las
+    dimensiones como una tupla. Ejemplo: tablero_1 = Tablero((16, 16)).
+
+3.- La instancia de tablero genera automaticamente 4 tableros con sus representaciones. Para referirnos a ellas debenos referenciarlas tal que asi
+    (tomando como ejemplo de ahora en adelante que llamamos a la instancia "tablero_1"):
+
+    a.- tablero_1.tablero_humano
+    b.- tablero_1.tablero_humano_reflejo
+    c.- tablero_1.tablero_maquina
+    d.- tablero_1.tablero_maquina_reflejo
+
+4.- Para colocar los barcos del jugador humano deberemos colocarlos en el tablero del humano --> tablero_1.tablero_humano
+
+5.- Para colocar los barcos del jugador maquina deberemos colocarlos en el tablero de la maquina --> tablero_1.tablero_maquina
+
+6.- En caso de que el jugador humano realice un disparo:
+
+    a.- Para reflejar el disparo en el tablero del jugador maquina deberemos referenciar la celda/escalar/casilla en tablero_1.tablero_maquina.
+    b.- Para reflejar el disparo en el tablero reflejo que observa el jugador humano debemos referenciar la celda/escalar/casilla en tablero_1.tablero_humano_reflejo.
+
+7.- En caso de que el jugador maquina realice un disparo:
+
+    a.- Para reflejar el disparo en el tablero del jugador humano deberemos referenciar la celda/escalar/casilla en tablero_1.tablero_humano.
+    b.- Para reflejar el disparo en el tablero reflejo que observa el jugador maquina debemos referenciar la celda/escalar/casilla en tablero_1.tablero_maquina_reflejo.
+
+8.- Para imprimir el tablero en su condicion actual solo debemos imprimir la instancia.
+    Ejemplo: "print(tablero_1)", esto mostrara los tableros que observa el jugador humano(su tablero y el reflejo del tablero de la maquina).
+'''
+
 import numpy as np
 
 class Tablero:
@@ -23,8 +58,11 @@ class Tablero:
         for index_row, row in enumerate(self.tablero_humano_reflejo):
             print('\n', '+-------'*len(self.tablero_humano_reflejo), '+', sep='')
             for index_col, col in enumerate(self.tablero_humano_reflejo):
-                
-                print('| ', self.tablero_humano_reflejo[index_row][index_col], ' ', end = '')
+
+                if index_row > 8:
+                    print('|', self.tablero_humano_reflejo[index_row][index_col], ' ', end = '')
+                else:
+                    print('| ', self.tablero_humano_reflejo[index_row][index_col], ' ', end = '')
                 
             print('|', end = '')
         print('\n', '+-------'*len(self.tablero_humano_reflejo), '+', sep='')
@@ -34,8 +72,11 @@ class Tablero:
         for index_row, row in enumerate(self.tablero_humano):
             print('\n', '+-------'*len(self.tablero_humano), '+', sep='')
             for index_col, col in enumerate(self.tablero_humano):
-                
-                print('| ', self.tablero_humano[index_row][index_col], ' ', end = '')
+
+                if index_row > 8:
+                    print('|', self.tablero_humano[index_row][index_col], ' ', end = '')
+                else:
+                    print('| ', self.tablero_humano[index_row][index_col], ' ', end = '')
                 
             print('|', end = '')
         print('\n', '+-------'*len(self.tablero_humano), '+', sep='')
@@ -62,8 +103,4 @@ class Tablero:
 
 tablero_1 = Tablero()
 
-tablero_1.tablero_humano[1][1] = ' - '
-tablero_1.tablero_humano[2][3] = ' O '
-tablero_1.tablero_humano[2][4] = ' X '
-tablero_1.tablero_humano[5][7] = ' X '
 print(tablero_1)
