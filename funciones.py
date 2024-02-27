@@ -7,13 +7,17 @@ Ejemplo --> crear_tablero((12,12)). Tamaño maximo (26x26)
 Debemos almacenar el tablero creado en una variable.
 Ejemplo --> tablero_1 = crear_tablero()
 '''
+import tablero
 
-def crear_tablero(dimensiones = None):
+def crear_tablero(x = None, y = None):
 
-    if dimensiones != None:
+    dimensiones = (x+1, y+1)
+    
+    if dimensiones != (None, None):
         tablero = Tablero(dimensiones)
     else:
         tablero = Tablero()
 
     print(tablero)
     return tablero
+
