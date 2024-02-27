@@ -98,7 +98,7 @@ class Tablero:
     def formato_letras_numeros(self):
 
         letras = [' ' + chr(x) for x in range(65, 64 + len(self.tablero_humano))]
-        numeros = [x for x in range(1, len(self.tablero_humano)+1)]
+        numeros = [x for x in range(1, len(self.tablero_humano))]
         tableros = [self.tablero_humano,
                     self.tablero_humano_reflejo,
                     self.tablero_maquina,
@@ -107,11 +107,7 @@ class Tablero:
         for board in tableros:
             
             for index_row, row in enumerate(board[1:]):
-                if index_row > 8:
-                    row[0] = f'{numeros[index_row]}'
-                else:
-                    row[0] = f' {numeros[index_row]}'
+                
+                row[0] = f'{letras[index_row]}'
 
-            board[0, 1:] = np.array(letras)
-
-
+            board[0, 1:] = np.array(numeros)
