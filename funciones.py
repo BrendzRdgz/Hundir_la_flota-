@@ -8,12 +8,16 @@ Debemos almacenar el tablero creado en una variable.
 Ejemplo --> tablero_1 = crear_tablero()
 '''
 
-def crear_tablero(dimensiones = None):
+def crear_tablero(x = None, y = None):
 
-    if dimensiones != None:
+    dimensiones = (x, y)
+    
+    if dimensiones != (None, None):
+        dimensiones = (x+1, y+1)
         tablero = Tablero(dimensiones)
     else:
         tablero = Tablero()
 
     print(tablero)
     return tablero
+
