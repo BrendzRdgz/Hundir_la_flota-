@@ -3,6 +3,22 @@
 #2- la comprobacion de los ifs para ver que haya hueco donde dejar el barco depende de la cantidad de espacios que haya,
 #se queda pendiente también
 
+def coordenada_a_num(coord):
+    abecedario = 'abcdefghijklmnopqrstuvwxyz'
+    while True:
+        disparo = [char for char in coord]
+        if disparo[1] in abecedario or len(coord) != 2 or disparo[0] not in abecedario:
+            print('Introduce una coordenada válida porfa')
+            continue
+        diccionario_letras = {letra: indice + 1 for indice, letra in enumerate(abecedario)}
+        for letra,numero in diccionario_letras.items():
+            if disparo[0] == letra:
+                disparo[0] = numero
+        disparo[1] = int(disparo[1])
+        break
+    return disparo
+#esta funcion te devuelve cualquier string introducida por una lista compuesta por dos numeros, para acceder
+#a la coordenada en x se accede a disparo[0] y para y a disparo[1]
 
 def generar_barcos_aleatorios(tablero, longitud):
     import random
@@ -44,13 +60,16 @@ def generar_barcos_aleatorios(tablero, longitud):
 
 def disparar(tablero,tablero_reflejo):
     while True:
-        #introducir inputs para el disparo (x y)
+        coord = input('Introduce la coordenada donde quieras disparar (ejemplo: a1): ')
+        coordenada_a_num(coord)
+        x = disparo[0]
+        y = disparo[1]
         if x > dimensiones or x < 0 or y > dimensiones or y < 0:
             print('Prueba a disparar dentro del tablero illo, que tienes el cañón desviao')
             continue
-        elif tablero[x, y] == " O ":
-            tablero[x, y] = " X "
-            tablero_reflejo[x, y] = " X "
+        elif tablero[x, y] == "O":
+            tablero[x, y] = "X"
+            tablero_reflejo[x, y] = "X"
             print("¡Tocado!")
             continue
         else:
@@ -162,24 +181,27 @@ def comprobar_victoria_maquina(tablero):
 #hay que realizar una función juego, se correrá con los tableros ya creados y los barcos ya posicionados, solamente
 #realizando la función de disparo y comprobación dentro de ella
         
-def juego(self.tablero_jugador, self.tablero_jugador_reflejo, self.tablero_maquina, self.tablero_maquina_reflejo):
+def juego(tablero_1.tablero_jugador, tablero_1.tablero_jugador_reflejo, tablero_1.tablero_maquina, tablero_1.tablero_maquina_reflejo):
     #se colocan los barcos de la máquina
     for i in range(4):
         longitud = 1
-        generar_barcos_aleatorios(self.tablero_maquina, longitud)
+        generar_barcos_aleatorios(tablero_1.tablero_maquina, longitud)
+        i = i + 1
     for i in range(3):
         longitud = 2
-        generar_barcos_aleatorios(self.tablero_maquina, longitud)
+        generar_barcos_aleatorios(tablero_1.tablero_maquina, longitud)
+        i = i + 1
     for i in range(2):
         longitud = 3
-        generar_barcos_aleatorios(self.tablero_maquina, longitud)
-    generar_barcos_aleatorios(self.tablero_maquina, 4)
+        generar_barcos_aleatorios(tablero_1.tablero_maquina, longitud)
+        i = i + 1
+    generar_barcos_aleatorios(tablero_1.tablero_maquina, 4)
 
     print('Máquina, te dejo que empieces primero, un poco de ventaja no te vendrá mal...')
     while True:
     #input para introducir las coords de disparo
-        disparar(self.tablero_maquina)
-        comprobar_victoria(self.tablero_maquina)
+        disparar(tablero_1.tablero_maquina)
+        comprobar_victoria(tablero_1.tablero_maquina)
 
-        disparo_maquina(self.tablero_jugador)
-        comprobar_victoria_maquina(self.tablero_jugador)
+        disparo_maquina(tablero_1.tablero_jugador)
+        comprobar_victoria_maquina(tablero_1.tablero_jugador)
