@@ -72,16 +72,18 @@ def genera_barco(tablero):
     return barcos_generados        
                 
 
-tamano_tablero = (10, 10)
-tablero = np.full(tamano_tablero, " ", dtype=str)
+#Todo esto es para probarlo
 
-print("Tablero inicial:")
-for fila in tablero:
-    print("['{}']".format("' '".join(fila)))
+#tamano_tablero = (10, 10)
+#tablero = np.full(tamano_tablero, " ", dtype=str)
 
-print("\nGenerando barcos específicos de forma aleatoria:")
-genera_barco(tablero)
+#print("Tablero inicial:")
+#for fila in tablero:
+#    print("['{}']".format("' '".join(fila)))
 
-print("\nTablero después de colocar los barcos:")
-for fila in tablero:
-    print("['{}']".format("' '".join(fila)))
+#print("\nGenerando barcos específicos de forma aleatoria:")
+#genera_barco(tablero)
+
+#print("\nTablero después de colocar los barcos:")
+#for fila in tablero:
+#    print("['{}']".format("' '".join(fila)))
