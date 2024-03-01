@@ -183,6 +183,10 @@ def comprobar_victoria_maquina(tablero):
         print('Vaya manta estás hecho, vas a tener que prácticar mucho más si quieres ganarme la próxima vez')
         juego_activo = True
 
+def coloca_barco(tablero, barco):
+    for pieza in barco:
+        tablero[pieza] = "O"
+
 def genera_barco(tablero):
     num_filas = tablero.shape[0]
     num_columnas = tablero.shape[1]
@@ -234,16 +238,4 @@ def genera_barco(tablero):
 
     return barcos_generados
 
-def juego(tablero_1.tablero_humano, tablero_1.tablero_humano_reflejo, tablero_1.tablero_maquina, tablero_1.tablero_maquina_reflejo):
-    #se colocan los barcos de la máquina
-    import numpy as np
 
-    print('Máquina, te dejo que empieces primero, un poco de ventaja no te vendrá mal...')
-    juego_activo = True
-    while juego_activo == True:
-    #input para introducir las coords de disparo
-        disparar(tablero_1.tablero_maquina)
-        comprobar_victoria(tablero_1.tablero_maquina)
-
-        disparar_maquina(tablero_1.tablero_jugador)
-        comprobar_victoria_maquina(tablero_1.tablero_jugador)
