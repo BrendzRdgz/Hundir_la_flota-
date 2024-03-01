@@ -20,7 +20,7 @@ def crear_tablero(x = None, y = None):
 def coordenada_a_num(coord):
     while True:
         disparo = [char for char in coord]
-        if disparo[1] in abecedario or (disparo[2] in abecedario & len(coord) > 3) or len(coord) < 2 or len(coord) > 3 or disparo[0] not in abecedario:
+        if disparo[1] in abecedario or (len(coord) == 3 & disparo[2] in abecedario) or len(coord) > 3 or len(coord) < 2 or len(coord) > 3 or disparo[0] not in abecedario:
             print('Introduce una coordenada válida porfa')
             continue
         diccionario_letras = {letra: indice + 1 for indice, letra in enumerate(abecedario)}
