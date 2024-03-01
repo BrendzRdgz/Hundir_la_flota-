@@ -1,22 +1,21 @@
-#1- para la función disparar, he supuesto que la conversión de letra a número se haría dentro de la función en sí, no sé cómo
-#se haría así que lo dejo en pendiente, a falta de hablar con fran
-#2- la comprobacion de los ifs para ver que haya hueco donde dejar el barco depende de la cantidad de espacios que haya,
-#se queda pendiente también
 
 def coordenada_a_num(coord):
     abecedario = 'abcdefghijklmnopqrstuvwxyz'
     while True:
         disparo = [char for char in coord]
-        if disparo[1] in abecedario or len(coord) != 2 or disparo[0] not in abecedario:
+        if disparo[1] in abecedario or len(coord) < 2 or len(coord) > 3 or disparo[0] not in abecedario:
             print('Introduce una coordenada válida porfa')
             continue
         diccionario_letras = {letra: indice + 1 for indice, letra in enumerate(abecedario)}
         for letra,numero in diccionario_letras.items():
             if disparo[0] == letra:
                 disparo[0] = numero
-        disparo[1] = int(disparo[1])
+        if len(disparo) == 2:
+            disparo[1] = int(disparo[1])
+        if len(disparo) == 3:
+            disparo[1] = int(str(disparo[1]) + str(disparo[2]))
         break
-    return disparo
+
 #esta funcion te devuelve cualquier string introducida por una lista compuesta por dos numeros, para acceder
 #a la coordenada en x se accede a disparo[0] y para y a disparo[1]
 
