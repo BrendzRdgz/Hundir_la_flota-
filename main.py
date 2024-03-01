@@ -4,9 +4,13 @@ import random
 from variables import *
 from FUNCIONES_2 import *
 
-print(tablero_1)
+#print(tablero_1)
 
-genera_barco
+genera_barco(tablero_1.tablero_humano)
+genera_barco(tablero_1.tablero_maquina)
+disparar(tablero_1.tablero_maquina, tablero_1.tablero_humano_reflejo)
+
+print(tablero_1)
 
 #if __name__ == "__main__":
 #    print('Máquina, te dejo que empieces primero, un poco de ventaja no te vendrá mal...')

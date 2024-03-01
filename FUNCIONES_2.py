@@ -206,7 +206,7 @@ def genera_barco(tablero):
             longitud = 1
 
         orientacion = np.random.choice(orientaciones)
-        origen = (np.random.randint(0, num_filas - 1), np.random.randint(0, num_columnas - 1))
+        origen = (np.random.randint(1, num_filas), np.random.randint(1, num_columnas))
 
         fila = origen[0]
         columna = origen[1]
