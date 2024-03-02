@@ -4,12 +4,15 @@ import variables
 import numpy as np
 import random
 
+juego_activo = True
 abecedario = 'abcdefghijklmnopqrstuvwxyz-'
 orientaciones = ["N","S","O","E"]
 lista_de_barcos = []
 lista_de_barcos_maquina = []
 disparos = []
 aciertos = []
+barcos_hundidos = 0
+barcos_hundidos_maquina = 0
 dimensiones = 10 #a falta de adaptar la variable dimensiones en el codigo
 
 def crear_tablero(x = None, y = None):
@@ -138,7 +141,7 @@ def genera_barco_maquina(tablero):
                 else:
                     columna -= 1
 
-                if fila >= num_filas or fila < 0 or columna >= num_columnas or columna < 0:
+                if fila >= num_filas or fila < 1 or columna >= num_columnas or columna < 1:
                     break
 
                 if tablero[fila, columna] == "O" or tablero[fila, columna] == "X":
@@ -159,8 +162,15 @@ def comprobar_hundido(disparo, lista):
             if disparo == parte_barco:
                 barco.remove(parte_barco)
 
-def disparar(tablero,tablero_reflejo):
+def eliminar_restos(barcos):
+    for barco in barcos:
+        if len(barco) == 0:
+            barcos.remove(barco)
+
+
+def disparar(tablero,tablero_reflejo,barcos_hundidos):
     while True:
+        comprobar_victoria(barcos_hundidos)
         disparo = elegir_coordenada()
         x = disparo[0]
         y = disparo[1]
@@ -173,27 +183,30 @@ def disparar(tablero,tablero_reflejo):
             comprobar_hundido(disparo,lista_de_barcos_maquina)
             for barco in lista_de_barcos_maquina:
                 print(barco)
-                barcos_hundidos = 0
+                hundido = False
                 if len(barco) == 0:
-                    barcos_hundidos = 1
+                    hundido = True
                     print("¡Tocado y hundido! Ahí va, me has dado bien dao...")
-                    print(tablero_reflejo)
+                    barcos_hundidos += 1
+                    eliminar_restos(lista_de_barcos_maquina)
+                    #_reflejo)
                     break
-            if barcos_hundidos == 0:
+            if hundido == False:
                 print('¡Tocado!')     
-                print(tablero_reflejo)
+                #print(tablero_reflejo)
                 continue
         else:
             tablero[x, y] = " - "
             tablero_reflejo[x, y] = " - "
             print("¡Agua!")
-            print(tablero_reflejo)
+            #print(tablero_reflejo)
             break
 
 
-def disparar_maquina(tablero):
+def disparar_maquina(tablero, barcos_hundidos_maquina):
     print('¡Mi turno! ¡Prepárate!')
     while True:
+        comprobar_victoria_maquina(barcos_hundidos_maquina)
         #si queremos hacer que la máquina apunte a los tocados, habría que distinguir el icono de tocado con el de
         #tocado y hundido, coge un tocado, elige una orientacion random y dispara al lado
         if "X" in tablero:
@@ -211,15 +224,17 @@ def disparar_maquina(tablero):
                         for barco in lista_de_barcos:
                             if len(barco)== 0:
                                 print("¡Tocado y hundido! ¡Uno menos!")
-                                print(tablero)
+                                barcos_hundidos_maquina += 1
+                                eliminar_restos(lista_de_barcos)
+                                #print(tablero)
                                 continue
                         print('¡Tocado! ¡Tomaaaa!')
-                        print(tablero)
+                        #print(tablero)
                         continue
                     else:
                         tablero[x - 1, y] = "-"
                         print("¿Otra vez he fallado? :(")
-                        print(tablero)
+                        #print(tablero)
                         break
                 else:
                     continue
@@ -234,15 +249,17 @@ def disparar_maquina(tablero):
                         for barco in lista_de_barcos:
                             if len(barco)== 0:
                                 print("¡Tocado y hundido! ¡Uno menos!")
-                                print(tablero)
+                                barcos_hundidos_maquina += 1
+                                eliminar_restos(lista_de_barcos)
+                                #print(tablero)
                                 continue
                         print('¡Tocado! ¡Tomaaaa!')
-                        print(tablero)
+                        #print(tablero)
                         continue
                     else:
                         tablero[x + 1, y] = "-"
                         print("¿Otra vez he fallado? :(")
-                        print(tablero)
+                        #print(tablero)
                         break
                 else:
                     continue
@@ -257,15 +274,17 @@ def disparar_maquina(tablero):
                         for barco in lista_de_barcos:
                             if len(barco)== 0:
                                 print("¡Tocado y hundido! ¡Uno menos!")
-                                print(tablero)
+                                barcos_hundidos_maquina += 1
+                                eliminar_restos(lista_de_barcos)
+                                #print(tablero)
                                 continue
                         print('¡Tocado! ¡Tomaaaa!')
-                        print(tablero)
+                        #print(tablero)
                         continue
                     else:
                         tablero[x, y + 1] = "-"
                         print("¿Otra vez he fallado? :(")
-                        print(tablero)
+                        #print(tablero)
                         break
                 else:
                     continue
@@ -280,15 +299,17 @@ def disparar_maquina(tablero):
                         for barco in lista_de_barcos:
                             if len(barco)== 0:
                                 print("¡Tocado y hundido! ¡Uno menos!")
-                                print(tablero)
+                                barcos_hundidos_maquina += 1
+                                eliminar_restos(lista_de_barcos)
+                                #print(tablero)
                                 continue
                         print('¡Tocado! ¡Tomaaaa!')
-                        print(tablero)
+                        #print(tablero)
                         continue
                     else:
                         tablero[x, y - 1] = "-"
                         print("¿Otra vez he fallado? :(")
-                        print(tablero)
+                        #print(tablero)
                         break
                 else:
                     continue
@@ -298,37 +319,36 @@ def disparar_maquina(tablero):
             if (x,y) in disparos:
                 continue
             else:
+                disparo = (x,y)
                 disparos.append((x,y))
             if tablero[x, y] == "O":
                 tablero[x, y] = "X"
                 aciertos.append((x,y))
+                comprobar_hundido(disparo,lista_de_barcos)
+                for barco in lista_de_barcos:
+                    if len(barco)== 0:
+                        print("¡Tocado y hundido! ¡Uno menos!")
+                        barcos_hundidos_maquina += 1
+                        eliminar_restos(lista_de_barcos)
+                        #print(tablero)
+                        continue
                 print("¡Tocado! ¡Bien!")
-                print(tablero)
+                #print(tablero)
                 continue
             else:
                 tablero[x, y] = "-"
                 tablero[x, y] = "-"
                 print("He fallado, mierda...")
-                print(tablero)
+                #print(tablero)
                 break
 
-def comprobar_victoria(tablero):
-        i = 0
-        for fila in tablero:
-            for elemento in fila:
-                if elemento == "O":
-                    i += 1
-        if i == 0:
+def comprobar_victoria(barcos_hundidos):
+        if barcos_hundidos == 10:
             print('Enhorabuena illo, eres un máquina, me has ganao bien ganao. Si quieres que nos echemos otra avisa!')
-            juego_activo = False
+            #juego_activo = False
 
-def comprobar_victoria_maquina(tablero):
-        i = 0
-        for fila in tablero:
-            for elemento in fila:
-                if elemento == "O":
-                    i += 1
-        if i == 0:
+def comprobar_victoria_maquina(barcos_hundidos_maquina):
+        if barcos_hundidos_maquina == 10:
             print('Vaya manta estás hecho, vas a tener que prácticar mucho más si quieres ganarme la próxima vez')
             print('Es broma, eres un máquina igual ;)')
-            juego_activo = False
+            #juego_activo = False
