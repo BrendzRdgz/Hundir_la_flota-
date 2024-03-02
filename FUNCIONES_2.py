@@ -76,6 +76,8 @@ def disparar_maquina(tablero):
     while True:
         #si queremos hacer que la máquina apunte a los tocados, habría que distinguir el icono de tocado con el de
         #tocado y hundido, coge un tocado, elige una orientacion random y dispara al lado
+
+        #a4 repeticion bucle
         if "X" in tablero:
             (x,y) = np.random.choice(aciertos)
             orientacion_elegida = np.random.choice(orientaciones)
@@ -156,15 +158,15 @@ def disparar_maquina(tablero):
                 else:
                     continue
         else:
-            x = np.random.randint(0,9)
-            y = np.random.randint(0,9)
+            x = np.random.randint(1,10)
+            y = np.random.randint(1,10)
             if (x,y) in disparos:
                 continue
             else:
-                disparos.append(x,y)
+                disparos.append((x,y))
             if tablero[x, y] == " O ":
                 tablero[x, y] = " X "
-                aciertos.append((x, y))
+                aciertos.append((x,y))
                 print("Tocado!")
                 continue
             else:
