@@ -12,7 +12,7 @@ if __name__ == "__main__":
     print('Te dejo que empieces primero, un poco de ventaja no te vendrá mal...')
 
     while juego_activo:
-        print(lista_de_barcos_maquina)
+        #print(lista_de_barcos_maquina)
         juego_activo = disparar(tablero_1.tablero_maquina, tablero_1.tablero_humano_reflejo)
         juego_activo = disparar_maquina(tablero_1.tablero_humano, juego_activo)
         #os.system('clear')
