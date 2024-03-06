@@ -1,4 +1,4 @@
-from tablero import*
+from clases import*
 from variables import*
 import numpy as np
 import random
@@ -34,7 +34,6 @@ def elegir_coordenada():
         else:
             print('Introduce una coordenada válida porfa')
             continue
-
         diccionario_letras = {letra: indice + 1 for indice, letra in enumerate(abecedario)}
 
         for letra,numero in diccionario_letras.items():
@@ -101,7 +100,6 @@ def genera_barco(tablero):
                 lista_de_barcos_copia = copy.deepcopy(lista_de_barcos)
                 coloca_barco(tablero, barco)
                 barcos_generados += 1
-    print(barcos_generados)
 
 def genera_barco_maquina(tablero):
     num_filas = tablero.shape[0]
@@ -190,7 +188,6 @@ def disparar(tablero, tablero_reflejo):
     while True:
         print(tablero_1)
         juego_activo = comprobar_victoria(tablero)
-        print(juego_activo)
         if juego_activo == False:
             break
         disparo = elegir_coordenada()
@@ -236,7 +233,7 @@ def disparar_maquina(tablero, juego_activo):
         if juego_activo_1 == False or juego_activo_2 == False:
             juego_activo = False
             break
-        time.sleep(0.5)
+        time.sleep(1)
 
         if len(aciertos) != 0:
             acierto = random.choice(aciertos)
@@ -255,20 +252,20 @@ def disparar_maquina(tablero, juego_activo):
                         for barco in lista_de_barcos:
                             hundido = False
                             if len(barco)== 0:
+                                print(tablero_1)
                                 print("¡Tocado y hundido! ¡Uno menos!")
                                 hundido = True
                                 eliminar_restos_maquina(lista_de_barcos, lista_de_barcos_copia, aciertos)
-                                print(tablero_1)
                                 break
                         if hundido == False:
-                            print('¡Tocado! ¡Tomaaaa!')
                             print(tablero_1)
+                            print('¡Tocado! ¡Tomaaaa!')
                             continue
                         continue
                     else:
                         tablero[x - 1, y] = "-"
-                        print("¿Otra vez he fallado? :(")
                         print(tablero_1)
+                        print("¿Otra vez he fallado? :(")
                         break
                 else:
                     continue
@@ -285,20 +282,20 @@ def disparar_maquina(tablero, juego_activo):
                         for barco in lista_de_barcos:
                             hundido = False
                             if len(barco)== 0:
+                                print(tablero_1)
                                 print("¡Tocado y hundido! ¡Uno menos!")
                                 hundido = True
                                 eliminar_restos_maquina(lista_de_barcos, lista_de_barcos_copia, aciertos)
-                                print(tablero_1)
                                 break
                         if hundido == False:
-                            print('¡Tocado! ¡Tomaaaa!')
                             print(tablero_1)
+                            print('¡Tocado! ¡Tomaaaa!')
                             continue
                         continue
                     else:
                         tablero[x + 1, y] = "-"
-                        print("¿Otra vez he fallado? :(")
                         print(tablero_1)
+                        print("¿Otra vez he fallado? :(")
                         break
                 else:
                     continue
@@ -315,20 +312,20 @@ def disparar_maquina(tablero, juego_activo):
                         for barco in lista_de_barcos:
                             hundido = False
                             if len(barco)== 0:
+                                print(tablero_1)
                                 print("¡Tocado y hundido! ¡Uno menos!")
                                 hundido = True
                                 eliminar_restos_maquina(lista_de_barcos, lista_de_barcos_copia, aciertos)
-                                print(tablero_1)
                                 break
                         if hundido == False:
-                            print('¡Tocado! ¡Tomaaaa!')
                             print(tablero_1)
+                            print('¡Tocado! ¡Tomaaaa!')
                             continue
                         continue
                     else:
                         tablero[x, y + 1] = "-"
-                        print("¿Otra vez he fallado? :(")
                         print(tablero_1)
+                        print("¿Otra vez he fallado? :(")
                         break
                 else:
                     continue
@@ -345,20 +342,20 @@ def disparar_maquina(tablero, juego_activo):
                         for barco in lista_de_barcos:
                             hundido = False
                             if len(barco)== 0:
+                                print(tablero_1)
                                 print("¡Tocado y hundido! ¡Uno menos!")
                                 hundido = True
                                 eliminar_restos_maquina(lista_de_barcos, lista_de_barcos_copia, aciertos)
-                                print(tablero_1)
                                 continue
                         if hundido == False:
-                            print('¡Tocado! ¡Tomaaaa!')
                             print(tablero_1)
+                            print('¡Tocado! ¡Tomaaaa!')
                             continue
                         continue
                     else:
                         tablero[x, y - 1] = "-"
-                        print("¿Otra vez he fallado? :(")
                         print(tablero_1)
+                        print("¿Otra vez he fallado? :(")
                         break
                 else:
                     continue
@@ -377,20 +374,20 @@ def disparar_maquina(tablero, juego_activo):
                 for barco in lista_de_barcos:
                     hundido = False
                     if len(barco) == 0:
+                        print(tablero_1)
                         print("¡Tocado y hundido! ¡Uno menos!")
                         hundido = True
                         eliminar_restos_maquina(lista_de_barcos, lista_de_barcos_copia, aciertos)
-                        print(tablero_1)
                         break
                 if hundido == False:
-                    print('¡Tocado! ¡Tomaaaa!')
                     print(tablero_1)
+                    print('¡Tocado! ¡Tomaaaa!')
                     continue
                 continue
             else:
                 tablero[x, y] = "-"
-                print("He fallado, mierda...")
                 print(tablero_1)
+                print("He fallado, mierda...")
                 break
     #print(tablero_1)
     return juego_activo

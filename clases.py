@@ -92,7 +92,7 @@ class Tablero:
             print('|', end = '')
         print('\n', '+-----'*len(self.tablero_humano), '+', sep='')
         
-        return ('\n')
+        return ('')
         
 
     def formato_letras_numeros(self):

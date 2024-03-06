@@ -1,7 +1,6 @@
-from tablero import*
+from clases import*
 
 tablero_1 = Tablero()
-#global juego_activo
 juego_activo = True
 abecedario = 'abcdefghijklmnopqrstuvwxyz-'
 orientaciones = ["N","S","Oe","E"]
