@@ -231,7 +231,6 @@ def disparar(tablero, tablero_reflejo):
 #Función disparar_maquina, la otra función en bucle en el main, donde la máquina dará preferencia
 #a apuntar a los lugares colindantes a sus aciertos y, si no los hay, disparará aleatoriamente
 def disparar_maquina(tablero, juego_activo):
-    #print(juego_activo)
     if juego_activo == True:
         print('¡Mi turno! ¡Prepárate! ¡Bulería, buleríaaaa!')
     while True:

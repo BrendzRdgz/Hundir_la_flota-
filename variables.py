@@ -9,4 +9,4 @@ lista_de_barcos_maquina = []
 disparos = []
 disparos_maquina = []
 aciertos = []
-dimensiones = 10       #se puede ampliar hasta todo el alfabeto (26x26), el código está previsto para ello.
+dimensiones = 10       #se puede ampliar hasta todo el alfabeto (tablero 26x26), el código está preparado para ello
