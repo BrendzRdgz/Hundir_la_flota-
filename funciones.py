@@ -17,7 +17,7 @@ def crear_tablero(x = None, y = None):
 
     return tablero
 
-#Función para introducir a donde quieres disparar, y a partir de ello, transformarlo en una tupla de coordenadas (x, y)
+#Función para introducir a dónde quieres disparar y, a partir de ello, transformarlo en una tupla de coordenadas (x, y)
 def elegir_coordenada():
     while True:
         coord = input('Introduce la coordenada donde quieras disparar (ejemplo: a1): ')
@@ -52,8 +52,8 @@ def coloca_barco(tablero, barco):
     for pieza in barco:
         tablero[pieza] = "O"
 
-#Función para generar las coordenadas aleatorias donde se posicionarán los barcos en el tablero del jugador, y crear una lista
-#de barcos de esas posiciones
+#Función para generar las coordenadas aleatorias donde se posicionarán los barcos en el tablero del jugador, 
+#y crear una lista de barcos de esas posiciones
 def genera_barco(tablero):
     num_filas = tablero.shape[0]
     num_columnas = tablero.shape[1]
@@ -104,8 +104,8 @@ def genera_barco(tablero):
                 coloca_barco(tablero, barco)
                 barcos_generados += 1
 
-#Función para generar las coordenadas aleatorias donde se posicionarán los barcos en el tablero de la máquina, y crear una lista
-#de barcos de esas posiciones y una copia referencia
+#Función para generar las coordenadas aleatorias dónde se posicionarán los barcos en el tablero de la máquina, 
+#y crear una lista de barcos de esas posiciones y una copia referencia
 def genera_barco_maquina(tablero):
     num_filas = tablero.shape[0]
     num_columnas = tablero.shape[1]
@@ -156,8 +156,8 @@ def genera_barco_maquina(tablero):
                 coloca_barco(tablero, barco)
                 barcos_generados += 1
 
-#Las 3 funciones siguientes componen el proceso de destrucción, eliiminación de barcos y apuntado de la máquina.
-#Comprobar_hundido se dedicará a iterar sobre la lista de barcos y eliminar la parte del barco a donde hayas acertado
+#Las 3 funciones siguientes componen el proceso de destrucción, eliminación de barcos y apuntado de la máquina.
+#Comprobar_hundido se dedicará a iterar sobre la lista de barcos y eliminar la parte del barco donde hayas acertado
 def comprobar_hundido(disparo, lista):
     disparo = tuple(disparo)
     for barco in lista:
@@ -165,8 +165,8 @@ def comprobar_hundido(disparo, lista):
             if disparo == parte_barco:
                 barco.pop(i)
 
-#Eliminar_restos_maquina coge las dos listas de barcos del jugador y la lista de aciertos, y cuando haya habido un hundido
-#confirmado, borrará la lista vacía de "barcos", la lista referencia de "copias", y esas mismas coordenadas de la copia
+#Eliminar_restos_maquina coge las dos listas de barcos del jugador y la lista de aciertos y, cuando haya habido un hundido confirmado,
+#borrará la lista vacía de "barcos", la lista referencia de "copias" y, esas mismas coordenadas de la copia,
 #las borrará de aciertos, para que la máquina no vuelva a apuntar al lado de esos aciertos
 def eliminar_restos_maquina(barcos, copias, aciertos):
     for i, barco in enumerate(barcos):
@@ -228,8 +228,8 @@ def disparar(tablero, tablero_reflejo):
             break
     return juego_activo
 
-#Función disparar_maquina, la otra función en bucle en el main, en la que la máquina dará preferencia al apuntado
-#a los lugares colindantes de donde ya ha acertado, y si no hay, dispare aleatoriamente
+#Función disparar_maquina, la otra función en bucle en el main, donde la máquina dará preferencia
+#a apuntar a los lugares colindantes a sus aciertos y, si no los hay, disparará aleatoriamente
 def disparar_maquina(tablero, juego_activo):
     #print(juego_activo)
     if juego_activo == True:
@@ -413,7 +413,7 @@ def disparar_maquina(tablero, juego_activo):
                 break
     return juego_activo
 
-#Funciones para comprobar las victorias del jugador o de la máquina
+#Funciones para comprobar la victoria final del jugador o de la máquina
 def comprobar_victoria(tablero_maquina):
     juego_activo = True
     if not any ("O" in fila for fila in tablero_maquina):
