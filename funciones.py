@@ -5,8 +5,8 @@ import random
 import time
 import copy
 
+#Esta es la función para crear la variable tablero, compuesto según la clase definida, para el hundir la flota
 def crear_tablero(x = None, y = None):
-    global dimensiones
     dimensiones = (x, y)
     
     if dimensiones != (None, None):
@@ -17,6 +17,7 @@ def crear_tablero(x = None, y = None):
 
     return tablero
 
+#Función para introducir a donde quieres disparar, y a partir de ello, transformarlo en una tupla de coordenadas (x, y)
 def elegir_coordenada():
     while True:
         coord = input('Introduce la coordenada donde quieras disparar (ejemplo: a1): ')
@@ -46,10 +47,13 @@ def elegir_coordenada():
         break
     return disparo
 
+#Función para pintar los barcos creados en el tablero según las coordenadas establecidas en su función hermana genera_barco
 def coloca_barco(tablero, barco):
     for pieza in barco:
         tablero[pieza] = "O"
 
+#Función para generar las coordenadas aleatorias donde se posicionarán los barcos en el tablero del jugador, y crear una lista
+#de barcos de esas posiciones
 def genera_barco(tablero):
     num_filas = tablero.shape[0]
     num_columnas = tablero.shape[1]
@@ -57,13 +61,13 @@ def genera_barco(tablero):
     barcos_generados = 0
 
     while barcos_generados < 10: # Generar 10 barcos en total
-        if barcos_generados < 1:  # Generar barco de 4 posiciones
+        if barcos_generados < 1:
             longitud = 4
-        elif barcos_generados < 3:  # Generar barcos de 3 posiciones
+        elif barcos_generados < 3:
             longitud = 3
-        elif barcos_generados < 6:  # Generar barcos de 2 posiciones
+        elif barcos_generados < 6:
             longitud = 2
-        else:  # Generar barcos de 1 posición
+        else:
             longitud = 1
 
         orientacion = np.random.choice(orientaciones)
@@ -100,6 +104,8 @@ def genera_barco(tablero):
                 coloca_barco(tablero, barco)
                 barcos_generados += 1
 
+#Función para generar las coordenadas aleatorias donde se posicionarán los barcos en el tablero de la máquina, y crear una lista
+#de barcos de esas posiciones y una copia referencia
 def genera_barco_maquina(tablero):
     num_filas = tablero.shape[0]
     num_columnas = tablero.shape[1]
@@ -107,13 +113,13 @@ def genera_barco_maquina(tablero):
     barcos_generados = 0
 
     while barcos_generados < 10: # Generar 10 barcos en total
-        if barcos_generados < 1:  # Generar barco de 4 posiciones
+        if barcos_generados < 1:
             longitud = 4
-        elif barcos_generados < 3:  # Generar barcos de 3 posiciones
+        elif barcos_generados < 3:
             longitud = 3
-        elif barcos_generados < 6:  # Generar barcos de 2 posiciones
+        elif barcos_generados < 6:
             longitud = 2
-        else:  # Generar barcos de 1 posición
+        else:
             longitud = 1
 
         orientacion = np.random.choice(orientaciones)
@@ -150,6 +156,8 @@ def genera_barco_maquina(tablero):
                 coloca_barco(tablero, barco)
                 barcos_generados += 1
 
+#Las 3 funciones siguientes componen el proceso de destrucción, eliiminación de barcos y apuntado de la máquina.
+#Comprobar_hundido se dedicará a iterar sobre la lista de barcos y eliminar la parte del barco a donde hayas acertado
 def comprobar_hundido(disparo, lista):
     disparo = tuple(disparo)
     for barco in lista:
@@ -157,6 +165,9 @@ def comprobar_hundido(disparo, lista):
             if disparo == parte_barco:
                 barco.pop(i)
 
+#Eliminar_restos_maquina coge las dos listas de barcos del jugador y la lista de aciertos, y cuando haya habido un hundido
+#confirmado, borrará la lista vacía de "barcos", la lista referencia de "copias", y esas mismas coordenadas de la copia
+#las borrará de aciertos, para que la máquina no vuelva a apuntar al lado de esos aciertos
 def eliminar_restos_maquina(barcos, copias, aciertos):
     for i, barco in enumerate(barcos):
         if len(barco) == 0:
@@ -169,6 +180,7 @@ def eliminar_restos_maquina(barcos, copias, aciertos):
                     break
     return aciertos
 
+#Eliminar_restos hace lo mismo que arriba pero solamente con la lista de barcos de la máquina
 def eliminar_restos(barcos, copias):
     for i, barco in enumerate(barcos):
         if len(barco) == 0:
@@ -176,6 +188,7 @@ def eliminar_restos(barcos, copias):
             copias.pop(i)
             break
 
+#Función disparar para el jugador, una de las dos funciones en bucle en el main
 def disparar(tablero, tablero_reflejo):
     while True:
         print(tablero_1)
@@ -184,13 +197,10 @@ def disparar(tablero, tablero_reflejo):
             break
         disparo = elegir_coordenada()
         if disparo in disparos:
-            print('Illo, que ahí ya has tirao. Illo ahora te jodes, por tonto, un campeón no perdona...')
+            print('Illo, que ahí ya has tirao. Ahora te jodes, por tonto, un máquina no perdona...')
         disparos.append(disparo)
         x = disparo[0]
         y = disparo[1]
-        if x > dimensiones or y > dimensiones:
-            print('Prueba a disparar dentro del tablero illo, que tienes el cañón desviao...')
-            continue
         if tablero[x, y] == "O":
             tablero[x, y] = "X"
             tablero_reflejo[x, y] = "X"
@@ -205,19 +215,21 @@ def disparar(tablero, tablero_reflejo):
                     print(tablero_1)
                     break
             if hundido == False:
-                print('¡Tocado!')
+                print('¡Tocado! Ha sido suerte, no te emociones...')
                 time.sleep(2)    
                 print(tablero_1)
                 continue
         else:
             tablero[x, y] = "-"
             tablero_reflejo[x, y] = "-"
-            print("¡Agua!")
+            print("¿Lo escuchas? Chof chof, ¡Agua!")
             time.sleep(2)
             print(tablero_1)
             break
     return juego_activo
 
+#Función disparar_maquina, la otra función en bucle en el main, en la que la máquina dará preferencia al apuntado
+#a los lugares colindantes de donde ya ha acertado, y si no hay, dispare aleatoriamente
 def disparar_maquina(tablero, juego_activo):
     #print(juego_activo)
     if juego_activo == True:
@@ -367,8 +379,8 @@ def disparar_maquina(tablero, juego_activo):
                 else:
                     continue
         else:
-            x = np.random.randint(1,11)
-            y = np.random.randint(1,11)
+            x = np.random.randint(1,dimensiones+1)
+            y = np.random.randint(1,dimensiones+1)
             if (x,y) in disparos_maquina:
                 continue
             else:
@@ -401,6 +413,7 @@ def disparar_maquina(tablero, juego_activo):
                 break
     return juego_activo
 
+#Funciones para comprobar las victorias del jugador o de la máquina
 def comprobar_victoria(tablero_maquina):
     juego_activo = True
     if not any ("O" in fila for fila in tablero_maquina):
@@ -412,8 +425,9 @@ def comprobar_victoria(tablero_maquina):
 def comprobar_victoria_maquina(tablero_humano):
     juego_activo = True
     if not any ("O" in fila for fila in tablero_humano):
-        print('Vaya manta estás hecho, vas a tener que prácticar mucho más si quieres ganarme la próxima vez')
-        print('Es broma, ere" un máquina igual ;)')
+        print('Vaya manta estás hecho, vas a tener que prácticar mucho más si quieres ganarme la próxima vez...')
+        time.sleep(1)
+        print('Es broma, ere" un máquina igual. ¡Un abrazo!')
         time.sleep(3)
         juego_activo = False
     return juego_activo
